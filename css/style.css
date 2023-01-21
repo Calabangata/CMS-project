@@ -1,0 +1,30 @@
+hr {
+    height: 3px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 8, 96, 1) 0%,
+    rgba(9, 9, 121, 1) 21%,
+    rgba(6, 84, 170, 1) 51%,
+    rgb(0, 255, 115) 100%
+  );
+}
+
+.line-for-index {
+    height: 3px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgb(255, 0, 0) 0%,
+    rgba(9, 9, 121, 1) 21%,
+    rgba(6, 84, 170, 1) 51%,
+    rgb(255, 0, 0) 100%
+  );
+}
+
+li.test {
+  float: right;
+}
+
