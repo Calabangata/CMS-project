@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    $('#summernote').summernote();
+  });
+
 $(document).ready(function () {
     
     $('#selectAllBoxes').click(function(event){
@@ -15,4 +19,6 @@ $(document).ready(function () {
     })
 
 });
+
+
 
