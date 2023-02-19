@@ -1,14 +1,51 @@
+        <?php
+
+        if(isset($_POST['checkBoxArray'])){
+
+            foreach ($_POST['checkBoxArray'] as $postCheckId) {
+                $bulkOptions = $_POST['bulkOptions'];
+
+                switch ($bulkOptions) {
+                    case 'published':
+                        $query = "UPDATE posts SET post_status = '{$bulkOptions}' WHERE id_post = '{$postCheckId}'";
+                        $updateToPublish = mysqli_query($connection, $query);
+                        confirmQuery($updateToPublish);
+                        break;
+
+                        case 'draft':
+                            $query = "UPDATE posts SET post_status = '{$bulkOptions}' WHERE id_post = '{$postCheckId}'";
+                        $updateToDraft = mysqli_query($connection, $query);
+                        confirmQuery($updateToDraft);
+                        break;
+
+                        case 'delete':
+                            $query = "DELETE FROM posts WHERE id_post = {$postCheckId}";
+                            $deleteQuery = mysqli_query($connection, $query);
+                            confirmQuery($deleteQuery);
+                        break;
+                     
+                    default:
+                        # code...
+                        break;
+                }
+        
+            }
+
+        }
+
+        ?>
+        
         <form action="" method="post">
 
         <table class = "table table-bordered table-hover">
 
 
-        <div id="bulkOptionsContainer" class="col-xs-4">
-            <select class="form-control" name="" id="">
+        <div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
+            <select class="form-control" name="bulkOptions" id="">
                 <option value="">Select option</option>
-                <option value="">Publish</option>
-                <option value="">Draft</option>
-                <option value="">Delete</option>
+                <option value="published">Publish</option>
+                <option value="draft">Draft</option>
+                <option value="delete">Delete</option>
             </select>
         </div>
 
@@ -57,7 +94,7 @@
                     echo "<tr>";
                     ?>
 
-                    <td><input class='CheckBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id;  ?>'> </td>;
+                    <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>;
 
                     <?php
                     
