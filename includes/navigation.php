@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     
         <div class="container">
@@ -42,11 +43,23 @@
                 
                 ?>
 
-
-
                     <li>
                         <a href="admin">Admin</a>
                     </li>
+
+                    <?php
+                    
+                    if(isset($_SESSION['userRole'])){
+
+                        if(isset($_GET['p_id'])){
+
+                            $the_post_id = $_GET['p_id'];
+
+                            echo "<li><a href ='admin/Posts.php?source=editPost&p_id={$the_post_id}'>Edit post</a></li>";
+                        }
+                    }
+                    
+                    ?>
 
                 </ul>
             </div>
