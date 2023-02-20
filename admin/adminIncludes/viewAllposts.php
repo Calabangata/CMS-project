@@ -52,7 +52,7 @@
         <div class="col-xs-4">
 
         <input type="submit" name="submit" value="Apply" class="btn btn-success">
-        <a href="addPost.php" class="btn btn-primary">Add new</a>
+        <a href="Posts.php?source=addPost" class="btn btn-primary">Add new</a>
         </div>
 
 
@@ -68,6 +68,7 @@
                     <th>Tags</th>
                     <th>Comments</th>
                     <th>Date</th>
+                    <th>View post</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -94,7 +95,7 @@
                     echo "<tr>";
                     ?>
 
-                    <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>;
+                    <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
 
                     <?php
                     
@@ -120,6 +121,7 @@
                     echo "<td>{$post_tags}</td>";
                     echo "<td>{$post_comment_count}</td>";
                     echo "<td>{$post_date}</td>";
+                    echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
                     echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
                     echo "<td><a href='Posts.php?delete={$post_id}'>Delete</a></td>";
                     echo "</tr>";

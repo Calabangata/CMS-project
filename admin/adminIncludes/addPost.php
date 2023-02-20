@@ -40,6 +40,10 @@ $send_post_query = mysqli_query($connection, $query);
 
 confirmQuery($send_post_query);
 
+$postID = mysqli_insert_id($connection);
+
+echo "<p class = 'bg-success'>Post created! <a href = '../post.php?p_id={$postID}'>View post</a> or <a href = 'Posts.php'>View more posts!</a> </p>";
+
 }
 
 
@@ -55,6 +59,7 @@ confirmQuery($send_post_query);
 <div class="form-group">
    <select name="post_category" id="post_category">
 
+   <option value="">Post Category</option>
     <?php
     
     $query = "SELECT * FROM categories";
@@ -81,9 +86,17 @@ confirmQuery($send_post_query);
     <input type="text" class="form-control" name="author">
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
     <label for="post_status">Post Status</label>
     <input type="text" class="form-control" name="post_status">
+</div> -->
+
+<div class="form-group">
+    <select name="post_status" id="post_status">
+    <option value="draft">Post Status</option>
+    <option value="draft">Draft</option>
+    <option value="published">Published</option>
+    </select>
 </div>
 
 <div class="form-group">
