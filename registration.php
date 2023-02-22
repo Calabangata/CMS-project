@@ -14,31 +14,47 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $username = mysqli_real_escape_string($connection, $username);
-    $email = mysqli_real_escape_string($connection, $email);
-    $password = mysqli_real_escape_string($connection, $password);
+        if(!empty($username) && !empty($email) && !empty($password)){
 
-    $query = "SELECT randSalt FROM users";
-    $select_randSalt_query = mysqli_query($connection, $query);
+        $username = mysqli_real_escape_string($connection, $username);
+        $email = mysqli_real_escape_string($connection, $email);
+        $password = mysqli_real_escape_string($connection, $password);
 
-    if(!$select_randSalt_query){
-        die("Query failed!" . mysqli_error($connection));
+        // $query = "SELECT randSalt FROM users";
+        // $select_randSalt_query = mysqli_query($connection, $query);
+
+        // if(!$select_randSalt_query){
+        //     die("Query failed!" . mysqli_error($connection));
+        // }
+
+        // $row = mysqli_fetch_array($select_randSalt_query);
+        //$salt = $row['randSalt'];
+
+        $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
+
+        //$password = crypt($password, $salt);
+
+        
+
+
+        $query = "INSERT INTO users (username, email, user_password, user_role) ";
+        $query .= "VALUES('{$username}','{$email}','{$hashAndSalt}', 'Subscriber')";
+        $resigter_user_query = mysqli_query($connection, $query);
+
+        if(!$resigter_user_query){
+            die("Query failed!" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
+
+        }
+
+        $message = "Thank you for the registration!";
+
+    } else {
+        $message = "The fields cannot be empty!";
     }
-
-    $row = mysqli_fetch_array($select_randSalt_query);
-    $salt = $row['randSalt'];
-
-    $query = "INSERT INTO users (username, email, user_password, user_role) ";
-    $query .= "VALUES('{$username}','{$email}','{$password}', 'Subscriber')";
-    $resigter_user_query = mysqli_query($connection, $query);
-
-    if(!$resigter_user_query){
-        die("Query failed!" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
-
-    }
-
     
 
+} else {
+    $message = "";
 }
 
 ?>
@@ -54,6 +70,7 @@ if(isset($_POST['submit'])){
                 <div class="form-wrap">
                     <h1>Register</h1>
                     <form role="form" action="registration.php" id="login-form" method="post" autocomplete="off">
+                        <h6 class="text-center"><?php echo $message; ?></h6>
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
