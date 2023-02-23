@@ -36,10 +36,31 @@ if(isset($_POST['update_user'])){
 
 //move_uploaded_file($post_image_temp, "../images/$post_image");
 
+//$hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
+
+
+// echo "old hashed pass: " . $password;
+
+// echo "<br>";
+
+$new_pass = $_POST['user_password'];
+
+$new_hashed_pass = password_hash($new_pass, PASSWORD_BCRYPT);
+
+// echo "new pass: " .  $new_pass;
+
+// echo "<br>";
+
+// echo "new hashed pass: " . $new_hashed_pass;
+
+// if(password_verify($new_pass, $new_hashed_pass)){
+//     echo "WORKSSSSS";
+// }
+
 $query = "UPDATE users SET ";
     //$query .= "user_id = '{$user_id}', ";
     $query .= "username = '{$username}', ";
-    $query .= "user_password = {$password}, ";
+    $query .= "user_password = '{$new_hashed_pass}', ";
     $query .= "firstname = '{$firstname}', ";
     $query .= "lastname = '{$lastname}', ";
     $query .= "email = '{$email}', ";
