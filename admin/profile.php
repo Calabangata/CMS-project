@@ -40,10 +40,14 @@ if(isset($_POST['update_user'])){
 
 //move_uploaded_file($post_image_temp, "../images/$post_image");
 
+$new_pass = $password;
+
+$new_hashed_pass = password_hash($new_pass, PASSWORD_BCRYPT);
+
 $query = "UPDATE users SET ";
     //$query .= "user_id = '{$user_id}', ";
     $query .= "username = '{$username}', ";
-    $query .= "user_password = {$password}, ";
+    $query .= "user_password = '{$new_hashed_pass}', ";
     $query .= "firstname = '{$firstname}', ";
     $query .= "lastname = '{$lastname}', ";
     $query .= "email = '{$email}', ";

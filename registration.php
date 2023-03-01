@@ -11,34 +11,26 @@ include "includes/navigation.php";
 if(isset($_POST['submit'])){
 
     $username = $_POST['username'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-        if(!empty($username) && !empty($email) && !empty($password)){
+        if(!empty($username) && !empty($email) && !empty($password) && !empty($firstname) && !empty($lastname)){
 
         $username = mysqli_real_escape_string($connection, $username);
+        $firstname = mysqli_real_escape_string($connection, $firstname);
+        $lastname = mysqli_real_escape_string($connection, $lastname);
         $email = mysqli_real_escape_string($connection, $email);
         $password = mysqli_real_escape_string($connection, $password);
 
-        // $query = "SELECT randSalt FROM users";
-        // $select_randSalt_query = mysqli_query($connection, $query);
-
-        // if(!$select_randSalt_query){
-        //     die("Query failed!" . mysqli_error($connection));
-        // }
-
-        // $row = mysqli_fetch_array($select_randSalt_query);
-        //$salt = $row['randSalt'];
+        
 
         $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
 
-        //$password = crypt($password, $salt);
 
-        
-
-
-        $query = "INSERT INTO users (username, email, user_password, user_role) ";
-        $query .= "VALUES('{$username}','{$email}','{$hashAndSalt}', 'Subscriber')";
+        $query = "INSERT INTO users (username, firstname, lastname, email, user_password, user_role) ";
+        $query .= "VALUES('{$username}','{$firstname}','{$lastname}','{$email}','{$hashAndSalt}', 'Subscriber')";
         $resigter_user_query = mysqli_query($connection, $query);
 
         if(!$resigter_user_query){
@@ -71,6 +63,17 @@ if(isset($_POST['submit'])){
                     <h1>Register</h1>
                     <form role="form" action="registration.php" id="login-form" method="post" autocomplete="off">
                         <h6 class="text-center"><?php echo $message; ?></h6>
+
+                        <div class="form-group">
+                            <label for="firstname" class="sr-only">First name</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your firstname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname" class="sr-only">Last name</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your lastname">
+                        </div>
+
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">

@@ -18,11 +18,15 @@ if(isset($_POST['create_user'])){
 
 //move_uploaded_file($post_image_temp, "../images/$post_image");
 
+$new_pass = $password;
+
+$new_hashed_pass = password_hash($new_pass, PASSWORD_BCRYPT);
+
 $query = "INSERT INTO  users(firstname, lastname, user_role,
  username, email, user_password)";
 
 $query .= "VALUES('{$firstname}','{$lastname}',
-'{$role}','{$username}','{$email}','{$password}')";
+'{$role}','{$username}','{$email}','{$new_hashed_pass}')";
 
 $user_query = mysqli_query($connection, $query);
 
