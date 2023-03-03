@@ -23,6 +23,35 @@
                             $deleteQuery = mysqli_query($connection, $query);
                             confirmQuery($deleteQuery);
                         break;
+
+                        case 'clone':
+
+                            $query = "SELECT * FROM posts WHERE id_post = '{$postCheckId}'";
+                            $select_post_query = mysqli_query($connection, $query);
+
+                            while($row = mysqli_fetch_array($select_post_query)){
+                                $post_title = $row['post_title'];
+                                $id_post_category = $row['id_post_category'];
+                                $post_author = $row['post_author'];
+                                $post_date = $row['post_date'];
+                                $post_tags = $row['post_tags'];
+                                $post_content = $row['post_content'];
+                                $post_image = $row['post_image'];
+                                $post_status = $row['post_status'];
+                            }
+
+                            $query = "INSERT INTO  posts(id_post_category, post_title, post_author,
+                            post_date, post_image, post_content, post_tags, post_status)";
+
+                            $query .= "VALUES({$id_post_category},'{$post_title}','{$post_author}',now(),
+                            '{$post_image}','{$post_content}','{$post_tags}','{$post_status}')";
+
+                            $send_post_query = mysqli_query($connection, $query);
+
+                            confirmQuery($send_post_query);
+
+
+                            break;
                      
                     default:
                         # code...
@@ -46,6 +75,7 @@
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
                 <option value="delete">Delete</option>
+                <option value="clone">Clone</option>
             </select>
         </div>
 
@@ -77,7 +107,7 @@
             
                 <?php
                 
-                $query = "SELECT * FROM posts";
+                $query = "SELECT * FROM posts ORDER BY id_post DESC";
                 $select_posts = mysqli_query($connection, $query);
 
 
