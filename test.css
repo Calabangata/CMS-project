@@ -1,31 +1,21 @@
-#load-screen {
-    background: url(../images/header-back.png);
-    position: fixed;
-    z-index: 10000;
-    top: 0px;
-    width: 100%;
-    height: 1600px;
-
+/* *
+{
+   margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #111;
 }
-
-#loading {
-
-    width: 500px;
-    height: 500px;
-    margin: 10% auto;
-    background: url(../images/loader.gif);
-    background-size: 40%;
-    background-repeat: no-repeat;
-    background-position: center;
-
-}
-
-
 
 .Loadcontainer{
+    /* padding-top: -500px; */
     position: relative;
     width: 100%;
-    margin-top: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,4 +120,15 @@
     0 0 0 20px #e41cf811,
     0 0 20px #e41cf8,
     0 0 50px #e41cf8;
+}
+
+.Loadcontainer p{
+    position: absolute;
+    margin: 0;
+    color: #fff;
+    font-size: 0.8cm;
+    font-family: consolas;
+    bottom: -80px;
+    letter-spacing: 0.15cm;
+    
 }
