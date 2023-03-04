@@ -25,10 +25,25 @@ $(document).ready(function () {
                             <div class='ring'></div>\
                             <div class='ring'></div>\
                         </div>\
+                        <div class='text-container'>\
+                            <div class='loading-text'>Loading</div>\
+                                <div class='dots'>\
+                                    <span>.</span>\
+                                    <span>.</span>\
+                                    <span>.</span>\
+                                </div>\
+                            </div>\
                     </div>";
     
 
     $("body").prepend(div_box);
+
+    // window.onload = function() {
+    //     console.log('FULLY LOADED');
+    //     $('#load-screen').fadeOut(600, function(){
+    //         $(this).remove();
+    //     });
+    // };
 
     $('#load-screen').delay(5000).fadeOut(600, function(){
         $(this).remove();
