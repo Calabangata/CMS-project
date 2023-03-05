@@ -1,5 +1,7 @@
-<?php include "includes/db.php"; ?>
-<?php include "includes/header.php"; ?>
+<?php
+ include "includes/db.php";
+ include "includes/header.php";
+  ?>
 
     <!-- Navigation -->
     <?php include "includes/navigation.php"; ?>
@@ -20,8 +22,29 @@
 
 
             <?php
+
+            $postsPerpage = 5;
+
+            if(isset($_GET['page'])){
+
+                $page = $_GET['page'];
+                
+            } else {
+                $page = "";
+            }
+
+            if($page == "" || $page == 1){
+                $page_1 = 0;
+            } else {
+                $page_1 = ($page * $postsPerpage) - $postsPerpage;
+            }
+
+            $postCountQuery = "SELECT * FROM posts";
+            $findCount = mysqli_query($connection, $postCountQuery);
+            $count = mysqli_num_rows($findCount);          
+            $count = ceil($count / $postsPerpage); // counting how many pages I get
             
-            $query = "SELECT * FROM posts";
+            $query = "SELECT * FROM posts LIMIT $page_1, $postsPerpage";
             $select_all_posts_query = mysqli_query($connection, $query);
 
                 while($row = mysqli_fetch_assoc($select_all_posts_query)){
@@ -68,6 +91,20 @@
         <!-- /.row -->
 
         <hr class="line-for-index">
+
+        <ul class="pager">
+        <?php
+        for($i = 1; $i <= $count; $i++){
+
+            if($i == $page){
+                echo "<li><a class='activeLink' href='index.php?page={$i}'>{$i}</a></li>";
+            } else {
+                echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+            }
+        }
+
+        ?>
+        </ul>
 
        <?php
        include "includes/footer.php";

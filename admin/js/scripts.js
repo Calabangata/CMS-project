@@ -38,16 +38,17 @@ $(document).ready(function () {
 
     $("body").prepend(div_box);
 
-    // window.onload = function() {
-    //     console.log('FULLY LOADED');
-    //     $('#load-screen').fadeOut(600, function(){
-    //         $(this).remove();
-    //     });
-    // };
+    window.onload = function() {
+        $('body').fadeIn(600);
+        console.log('FULLY LOADED');
+        $('#load-screen').fadeOut(600, function(){
+            $(this).remove();
+        });
+    };
 
-    $('#load-screen').delay(5000).fadeOut(600, function(){
-        $(this).remove();
-    });
+    // $('#load-screen').delay(5000).fadeOut(600, function(){
+    //     $(this).remove();
+    // });
 
 });
 

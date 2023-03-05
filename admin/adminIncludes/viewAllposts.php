@@ -49,9 +49,14 @@
                             $send_post_query = mysqli_query($connection, $query);
 
                             confirmQuery($send_post_query);
-
-
                             break;
+
+                            case 'resetViews':
+                                $query = "UPDATE posts SET post_views = 0 WHERE id_post = '{$postCheckId}'";
+                                $updateQuery = mysqli_query($connection, $query);
+                                confirmQuery($updateQuery);
+                                break;
+
                      
                     default:
                         # code...
@@ -70,19 +75,20 @@
 
 
         <div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
-            <select class="form-control" name="bulkOptions" id="">
+            <select class="form-control" name="bulkOptions" id="bulk">
                 <option value="">Select option</option>
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
                 <option value="delete">Delete</option>
                 <option value="clone">Clone</option>
+                <option value="resetViews">Reset views</option>
             </select>
         </div>
 
         <div class="col-xs-4">
 
-        <input type="submit" name="submit" value="Apply" class="btn btn-success">
-        <a href="Posts.php?source=addPost" class="btn btn-primary">Add new</a>
+        <input type="submit" name="submit" value="Apply" class="btn btn-success" id="bulk">
+        <a href="Posts.php?source=addPost" class="btn btn-primary" id="bulk">Add new</a>
         </div>
 
 
@@ -98,6 +104,7 @@
                     <th>Tags</th>
                     <th>Comments</th>
                     <th>Date</th>
+                    <th>Views</th>
                     <th>View post</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -121,6 +128,7 @@
                     $post_tags = $row['post_tags'];
                     $post_comment_count = $row['post_comment_count'];
                     $post_date = $row['post_date'];
+                    $post_views = $row['post_views'];
 
                     echo "<tr>";
                     ?>
@@ -151,6 +159,7 @@
                     echo "<td>{$post_tags}</td>";
                     echo "<td>{$post_comment_count}</td>";
                     echo "<td>{$post_date}</td>";
+                    echo "<td>{$post_views}</td>";
                     echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
                     echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
                     echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?'); \" href='Posts.php?delete={$post_id}'>Delete</a></td>";

@@ -22,7 +22,10 @@
 
             if(isset($_GET['p_id'])){
                 $that_post_id = $_GET['p_id'];
-            }
+            
+                $viewsQuery = "UPDATE posts SET post_views = post_views + 1 WHERE id_post = $that_post_id";
+                $sendQuery = mysqli_query($connection, $viewsQuery);
+                confirmQuery($sendQuery);
             
             $query = "SELECT * FROM posts WHERE id_post = $that_post_id ";
             $select_all_posts_query = mysqli_query($connection, $query);
@@ -52,7 +55,13 @@
 
                 <hr>
             
-            <?php } ?>
+        <?php }
+        
+            } else {
+                header("Location: index.php");
+            }
+        
+        ?>
 
         <!-- Blog Comments -->
 
@@ -82,6 +91,7 @@
                     echo "<script>alert('Fields can not be empty!');</script>";
                 }
 
+                redirect("/CMSProject_F099987/post.php?p_id=$that_post_id");
                 
             }
             
