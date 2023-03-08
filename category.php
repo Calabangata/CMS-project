@@ -56,12 +56,12 @@
             
             <?php
             
-            $simpleCnt++;
+            $simpleCnt = 1;
         
                 }
             
                 if($simpleCnt == 0){
-                    echo "<img class='img-responsive' src='images/noResults.png'>";
+                    echo "<img class='img-responsive margins' src='images/NoResultsFound.png'>";
                 }
 
             
