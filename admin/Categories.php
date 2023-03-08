@@ -58,6 +58,8 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Category Title</th>
+                                    <th>Delete</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thread>
                             <tbody>

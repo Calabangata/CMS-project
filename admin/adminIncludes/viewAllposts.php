@@ -88,7 +88,7 @@
         <div class="col-xs-4">
 
         <input type="submit" name="submit" value="Apply" class="btn btn-success" id="bulk">
-        <a href="Posts.php?source=addPost" class="btn btn-primary" id="bulk">Add new</a>
+        <a href="Posts.php?source=addPost" class="btn btn-primary" id="bulk">Add new post</a>
         </div>
 
 

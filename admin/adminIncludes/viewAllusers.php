@@ -1,6 +1,66 @@
+<?php
+
+if(isset($_POST['checkBoxArray'])){
+
+
+    foreach($_POST['checkBoxArray'] as $userCheckId){
+        $bulkOptions = $_POST['bulkOptions'];
+
+        switch($bulkOptions){
+
+            case 'Admin':
+                $query = "UPDATE users SET user_role = '{$bulkOptions}' WHERE user_id = '{$userCheckId}'";
+                $sendQuery = mysqli_query($connection, $query);
+                confirmQuery($sendQuery);
+                break;
+
+            case 'Subscriber':
+                $query = "UPDATE users SET user_role = '{$bulkOptions}' WHERE user_id = '{$userCheckId}'";
+                $sendQuery = mysqli_query($connection, $query);
+                confirmQuery($sendQuery);
+                break;
+                
+            case 'delete':
+                $query = "DELETE FROM users WHERE user_id = '{$userCheckId}'";
+                $sendQuery = mysqli_query($connection, $query);
+                confirmQuery($sendQuery);
+                break;
+
+            default:
+            break;
+        }
+
+
+    }
+
+}
+
+
+?>
+
+<form action="" method="post">
+
 <table class = "table table-bordered table-hover">
+
+        <div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
+            <select class="form-control" name="bulkOptions" id="bulk">
+                <option value="">Select option</option>
+                <option value="Admin">Make admin</option>
+                <option value="Subscriber">Make subscriber</option>
+                <option value="delete">Delete</option>
+                <!-- <option value="clone">Clone</option> -->
+                
+            </select>
+        </div>
+
+        <div class="col-xs-4">
+            <input type="submit" name="submit" value="Apply" class="btn btn-success" id="bulk">
+            <a href="Users.php?source=addUser" class="btn btn-primary" id="bulk">Add new user</a>
+        </div>
+
             <thead>
                 <tr>
+                <th><input id="selectAllBoxes" type="checkbox"></th>
                     <th>Id</th>
                     <th>Username</th>
                     <th>First name</th>
@@ -33,6 +93,13 @@
                     //$randSalt = $row['randSalt'];
 
                     echo "<tr>";
+
+                    ?>
+
+                    <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $user_id; ?>'></td>
+
+                    <?php
+
                     echo "<td>$user_id</td>";
                     echo "<td>$username</td>";
                     echo "<td>$firstname</td>";
@@ -71,6 +138,8 @@
             
         </tbody>
         </table>
+
+        </form>
 
         <?php 
         

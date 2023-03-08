@@ -21,6 +21,7 @@
             
             $query = "SELECT * FROM posts WHERE id_post_category = $post_category_id";
             $select_all_posts_query = mysqli_query($connection, $query);
+            $simpleCnt = 0;
 
                 while($row = mysqli_fetch_assoc($select_all_posts_query)){
                     $post_id = $row['id_post'];
@@ -53,7 +54,18 @@
 
                 <hr>
             
-            <?php } ?>
+            <?php
+            
+            $simpleCnt++;
+        
+                }
+            
+                if($simpleCnt == 0){
+                    echo "<img class='img-responsive' src='images/noResults.png'>";
+                }
+
+            
+            ?>
 
             </div>
 
