@@ -1,5 +1,48 @@
 <?php
 
+function onlineUsers(){
+
+        if(isset($_GET['onlineusers'])){
+
+        global $connection;
+
+        if(!$connection){
+            session_start();
+
+            include("../includes/db.php");
+
+            $session = session_id();
+        $time = time();
+        $timeOutseconds = 60;
+        $timeOut = $time - $timeOutseconds;
+
+        $query = "SELECT * FROM online_users WHERE session = '$session'";
+        $sendQuery = mysqli_query($connection, $query);
+        confirmQuery($sendQuery);
+
+        $count = mysqli_num_rows($sendQuery);
+
+        if($count == NULL){
+
+
+            mysqli_query($connection, "INSERT INTO online_users(session, time) VALUES('$session', '$time')");
+
+        } else {
+
+            mysqli_query($connection, "UPDATE online_users SET time = '$time' WHERE session = '$session'");
+
+        }
+
+        $onlineUsers = mysqli_query($connection, "SELECT * FROM online_users WHERE time > '$timeOut'");
+        $countUser = mysqli_num_rows($onlineUsers);
+
+        echo $countUser;
+
+        }
+    }
+
+}
+onlineUsers();
 
 function insertCategories(){
 

@@ -4,6 +4,7 @@
 
     <div id="wrapper">
 
+
         <!-- Navigation -->
        <?php include "adminIncludes/AdmNavigation.php" ?>
 
@@ -22,6 +23,8 @@
 
                             <small><?php echo $_SESSION['username'];?></small>
                         </h1>
+
+                        
 
                         
                     </div>
