@@ -12,6 +12,7 @@ function onlineUsers(){
             include("../includes/db.php");
 
             $session = session_id();
+            
         $time = time();
         $timeOutseconds = 60;
         $timeOut = $time - $timeOutseconds;
