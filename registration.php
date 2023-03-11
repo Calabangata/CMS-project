@@ -28,18 +28,25 @@ if(isset($_POST['submit'])){
 
         $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
 
+        $query = "SELECT * FROM users WHERE email = '{$email}'";
+        $sendquery = mysqli_query($connection, $query);
 
-        $query = "INSERT INTO users (username, firstname, lastname, email, user_password, user_role) ";
-        $query .= "VALUES('{$username}','{$firstname}','{$lastname}','{$email}','{$hashAndSalt}', 'Subscriber')";
-        $resigter_user_query = mysqli_query($connection, $query);
+        if(mysqli_num_rows($sendquery) > 0){
 
-        if(!$resigter_user_query){
-            die("Query failed!" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
+            $message = "This email is already used!";
 
+        } else {
+            $query = "INSERT INTO users (username, firstname, lastname, email, user_password, user_role) ";
+            $query .= "VALUES('{$username}','{$firstname}','{$lastname}','{$email}','{$hashAndSalt}', 'Subscriber')";
+            $resigter_user_query = mysqli_query($connection, $query);
+
+            if(!$resigter_user_query){
+                die("Query failed!" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
+
+            }
+            $message = "Thank you for the registration!";
         }
-
-        $message = "Thank you for the registration!";
-
+        
     } else {
         $message = "The fields cannot be empty!";
     }
@@ -62,7 +69,7 @@ if(isset($_POST['submit'])){
                 <div class="form-wrap">
                     <h1>Register</h1>
                     <form role="form" action="registration.php" id="login-form" method="post" autocomplete="off">
-                        <h6 class="text-center"><?php echo $message; ?></h6>
+                        <h6 class="text-center" id="message"><?php echo $message; ?></h6>
 
                         <div class="form-group">
                             <label for="firstname" class="sr-only">First name</label>

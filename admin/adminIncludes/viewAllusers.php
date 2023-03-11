@@ -143,7 +143,7 @@ if(isset($_POST['checkBoxArray'])){
 
         <?php 
         
-        if(isset($_GET['delete'])){
+        if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin' && isset($_GET['delete'])){
 
             $user_id = $_GET['delete'];
             $query = "DELETE FROM users WHERE user_id = $user_id";

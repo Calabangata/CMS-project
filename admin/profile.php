@@ -96,6 +96,7 @@ $query = "UPDATE users SET ";
 </div>
 
 <div class="form-group">
+    <label for="user_role">Role: </label>
    <select name="user_role"  id="">
 
    <option value="Subscriber"><?php echo $role; ?></option>
@@ -130,7 +131,7 @@ $query = "UPDATE users SET ";
 
 <div class="form-group">
     <label for="post_content">Password</label>
-<input type="password" value="<?php echo $password; ?>" class="form-control" name="user_password"></div>
+<input type="password" value="<?php //echo $password; ?>" class="form-control" name="user_password"></div>
 
 
 <div class="form-group">
