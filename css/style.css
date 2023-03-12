@@ -36,9 +36,16 @@ li.test {
 margin-left: -50px;
 }
 
+#register{
+padding-left: 210px;
+}
+
 #message{
-  transition: .3s;
-    animation: buttons .3s linear;
-    display: none;
+  /* transition: .3s;
+    animation: buttons .3s linear; */
+    color: rgb(10, 204, 10);
+    /* margin-top: -30px; */
+    
+    
 }
 
