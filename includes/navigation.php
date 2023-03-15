@@ -68,18 +68,23 @@
                     </li>
 
                     <li>
-                        <a href="registration.php">Register now</a>
+                        <a class="marginRight10" href="registration.php">Register now</a>
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 10px;"><i class="fa fa-user"></i> 
+                        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 10px;"><i class="fa fa-user"></i>  -->
                         <?php
-                        if(isset($_SESSION['username']))
-                        echo $_SESSION['username'];
-                        ?> <b class="caret"></b></a>
+                        if(isset($_SESSION['username'])){
+                            echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown' style='margin-right: 10px;'><i style='padding-right: 10px;' class='fa fa-user'></i>";
+                            echo $_SESSION['username'];
+                            echo "<b class='caret'></b></a>";
+                        }
+                        
+                        ?>
+                        
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="../includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                             </li>
                         </ul>
                     </li>

@@ -36,6 +36,10 @@ li.test {
 margin-left: -50px;
 }
 
+.marginRight10{
+  margin-right: 10px;
+}
+
 #register{
 padding-left: 210px;
 }
