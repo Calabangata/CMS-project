@@ -62,6 +62,7 @@
             
                 if($simpleCnt == 0){
                     echo "<img class='img-responsive margins' src='images/NoResultsFound.png'>";
+                    echo "<a class='btn btn-primary' href='addPostfromCategory.php'>Read More</a>";
                 }
 
             

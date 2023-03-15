@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     
-        <div class="container">
+        <!-- <div class="container"> -->
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -43,9 +43,7 @@
                 
                 ?>
 
-                    <li>
-                        <a href="admin">Admin</a>
-                    </li>
+                   
 
                     <?php
                     
@@ -61,13 +59,34 @@
                     
                     ?>
 
+                    
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="admin">Admin</a>
+                    </li>
+
                     <li>
                         <a href="registration.php">Register now</a>
                     </li>
 
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 10px;"><i class="fa fa-user"></i> 
+                        <?php
+                        if(isset($_SESSION['username']))
+                        echo $_SESSION['username'];
+                        ?> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
+
             </div>
             <!-- /.navbar-collapse -->
-        </div>
+        <!-- </div> -->
         <!-- /.container -->
     </nav>
