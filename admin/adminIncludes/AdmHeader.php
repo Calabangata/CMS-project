@@ -12,6 +12,8 @@ if(!isset($_SESSION['userRole'])){
 
 }
 
+$thisval = $_SESSION['userRole'];
+echo "<input type='hidden' id='userRole' value='$thisval'>";
 
  ?>
 <!DOCTYPE html>

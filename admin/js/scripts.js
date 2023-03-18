@@ -60,9 +60,13 @@ function loadOnlineusers(){
 
 }
 
+let userRole = document.getElementById('userRole').value;
+
+if(userRole == 'Admin'){
 setInterval(function(){
     loadOnlineusers();
 }, 500);
+}
 
 
 

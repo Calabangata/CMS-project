@@ -53,7 +53,14 @@ while($row = mysqli_fetch_array($select_user_query)){
         $_SESSION['firstname'] = $db_firstname;
         $_SESSION['lastname'] = $db_lastname;
         $_SESSION['userRole'] = $db_userRole;
+        
+        
+
+        if($_SESSION['userRole'] == "Admin"){
     header("Location: ../admin");
+        } else {
+            header("Location: ../admin/subIndex.php");
+        }
     
     } 
 
@@ -62,8 +69,5 @@ while($row = mysqli_fetch_array($select_user_query)){
     }
 
 }
-
-
-
 
 ?>
