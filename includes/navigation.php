@@ -67,6 +67,8 @@
                     <?php
                     if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == "Admin"){
                         echo "<li><a href='admin'>Admin</a></li>";
+                    } else {
+                        echo "<li><a href='admin/subIndex.php'>Admin</a></li>";
                     }
                     
 

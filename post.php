@@ -69,12 +69,22 @@
  
             if(isset($_POST['create_comment'])){
 
-                $that_post_id = $_GET['p_id'];
-                $comment_author = mysqli_real_escape_string($connection, $_POST['comment_author']);
-                $comment_email = mysqli_real_escape_string($connection, $_POST['comment_email']);
-                $comment_content = mysqli_real_escape_string($connection, $_POST['comment_content']);
+                if(isset($_SESSION['userRole'])){
+                    $comment_author = mysqli_real_escape_string($connection, $_SESSION['username']);
+                    $comment_email = mysqli_real_escape_string($connection, $_SESSION['email']);
+                } else {
+                    $comment_author = mysqli_real_escape_string($connection, $_POST['comment_author']);
+                    $comment_email = mysqli_real_escape_string($connection, $_POST['comment_email']);
+                }
 
-                if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+                if(!empty($comment_author) && !empty($comment_email) && !empty($_POST['comment_content'])){
+                    
+                $that_post_id = $_GET['p_id'];
+
+                
+                
+                
+                $comment_content = mysqli_real_escape_string($connection, $_POST['comment_content']);
 
                 $query = "INSERT INTO comments (id_comment_post, comment_author, comment_email, comment_content, comment_status, comment_date)";
                 $query .= "VALUES ($that_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now())";
@@ -82,16 +92,20 @@
                 $create_comment_query = mysqli_query($connection, $query);
 
                 confirmQuery($create_comment_query);
+                //echo "<label id='testing' for=''>Your comment will be approved shortly!</label>";
+                
+                 
 
                 // $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
                 // $query .= "WHERE id_post = $that_post_id";
                 // $update_comment_cnt = mysqli_query($connection, $query);
 
-                } else {
-                    echo "<script>alert('Fields can not be empty!');</script>";
+                } 
+                else {
+                    echo "<label id='testing' for=''>The fields can not be empty!</label>";
                 }
 
-                redirect("/CMSProject_F099987/post.php?p_id=$that_post_id");
+                //redirect("/CMSProject_F099987/post.php?p_id=$that_post_id");
                 
             }
             
@@ -103,15 +117,22 @@
                     <h4>Leave a Comment:</h4>
                     <form action="" method="post" role="form">
 
-                    <div class="form-group">
+                    <?php
+                    if(!isset($_SESSION['userRole'])){
+                        echo '<div class="form-group">
                         <label for="Author">Author</label>
                             <input type="text" class="form-control" name="comment_author">
-                        </div>
+                        </div>';
 
-                        <div class="form-group">
+                        echo ' <div class="form-group">
                             <label for="Email">Email</label>
                             <input type="email" class="form-control" name="comment_email">
-                        </div>
+                        </div>';
+                    }
+                    ?>
+                    
+
+                       
 
                         <div class="form-group">
                             <label for="Comment">Your comment</label>
@@ -119,15 +140,23 @@
                         </div>
                         <button type="submit" id="commentButton" name="create_comment" class="btn btn-primary">Submit</button>
                         <?php if(isset($_POST['create_comment'])){
-                            echo "<label id='testing' for=''>Your comment will be approved shortly!</label>";
                             
-                        } ?>
+                            if(isset($_SESSION['userRole'])){
+
+                                if(!empty($_POST['comment_content'])){
+                            echo "<label id='testing' for=''>Your comment will be approved shortly!</label>";
+                                }
+                            } else if(!empty($_POST['comment_author']) && !empty($_POST['comment_email']) && !empty($_POST['comment_content'])){
+                                echo "<label id='testing' for=''>Your comment will be approved shortly!</label>";
+                            }
+                        } 
+                         ?>
                         
                             <script>
                             function hideMessage() {
                                 document.getElementById("testing").style.display = "none"
                             }
-                            setTimeout(hideMessage, 10000);
+                            setTimeout(hideMessage, 5000);
 
                             </script>
                         

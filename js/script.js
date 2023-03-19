@@ -27,3 +27,15 @@ $(document).ready(function(){
     }, 3000);
 
 });
+
+// function validateForm() {
+//     var author = document.getElementById("comment_author").value;
+//     var email = document.getElementById("comment_email").value;
+
+//     var content = document.getElementById("comment_content").value;
+
+//     if (author == "" && email == "" && content == "") {
+//       alert("Name must be filled out");
+//       return false;
+//     }
+//   }

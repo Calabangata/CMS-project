@@ -75,6 +75,8 @@ if(isset($_POST['checkBoxArray'])){
             
                 <?php
                 
+                if($_SESSION['userRole'] == "Admin"){
+
                 $query = "SELECT * FROM comments ORDER BY id_comment DESC";
                 $select_comments = mysqli_query($connection, $query);
 
@@ -97,22 +99,7 @@ if(isset($_POST['checkBoxArray'])){
                     echo "<td>{$comment_id}</td>";
                     echo "<td>{$comment_author}</td>";
                     echo "<td>{$comment_content}</td>";
-
-                    // $query = "SELECT * FROM categories WHERE id_cat = $post_cat_id";
-                    // $select_categories_id = mysqli_query($connection, $query);
-
-
-                    // while($row = mysqli_fetch_assoc($select_categories_id)){
-                    // $id_cat = $row['id_cat'];
-                    // $cat_title = $row['cat_title'];
-
-                    // echo "<td>{$cat_title}</td>";
-                    // }
-
-
-
                     echo "<td>{$comment_email}</td>";
-                
                     echo "<td>{$comment_status}</td>";
 
                         $query = "SELECT * FROM posts WHERE id_post = $id_comment_post";
@@ -126,15 +113,60 @@ if(isset($_POST['checkBoxArray'])){
                         }
 
                     echo "<td>{$comment_date}</td>";
-                   
-
                     echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
                     echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
                     echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
                     echo "</tr>";
 
+                }
+
+            } else {
+
+                $userCheck = $_SESSION['username'];
+                $query = "SELECT * FROM comments WHERE comment_author = '{$userCheck}'  ORDER BY id_comment DESC";
+                $select_comments = mysqli_query($connection, $query);
+
+
+                while($row = mysqli_fetch_assoc($select_comments)){
+                    $comment_id = $row['id_comment'];
+                    $id_comment_post = $row['id_comment_post'];
+                    $comment_author = $row['comment_author'];
+                    $comment_content = $row['comment_content'];
+                    $comment_email = $row['comment_email'];
+                    $comment_status = $row['comment_status']; 
+                    $comment_date = $row['comment_date'];
+
+                    echo "<tr>";
+                    ?>
+
+                    <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $comment_id; ?>'></td>
+
+                    <?php
+                    echo "<td>{$comment_id}</td>";
+                    echo "<td>{$comment_author}</td>";
+                    echo "<td>{$comment_content}</td>";
+                    echo "<td>{$comment_email}</td>";
+                    echo "<td>{$comment_status}</td>";
+
+                        $query = "SELECT * FROM posts WHERE id_post = $id_comment_post";
+                        $select_post_id_query = mysqli_query($connection, $query);
+
+                        while($row = mysqli_fetch_assoc($select_post_id_query)){
+                            $post_id = $row['id_post'];
+                            $post_title = $row['post_title'];
+                        
+                             echo "<td><a href='../post.php?p_id=$post_id'>$post_title</a></td>";
+                        }
+
+                    echo "<td>{$comment_date}</td>";
+                    echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
+                    echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
+                    echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
+                    echo "</tr>";
 
                 }
+
+            }
                 
                 
                 ?>

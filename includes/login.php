@@ -32,6 +32,7 @@ while($row = mysqli_fetch_array($select_user_query)){
     $db_firstname = $row['firstname'];
     $db_lastname = $row['lastname'];
     $db_userRole = $row['user_role'];
+    $db_email = $row['email'];
     
 }
 
@@ -53,6 +54,7 @@ while($row = mysqli_fetch_array($select_user_query)){
         $_SESSION['firstname'] = $db_firstname;
         $_SESSION['lastname'] = $db_lastname;
         $_SESSION['userRole'] = $db_userRole;
+        $_SESSION['email'] = $db_email;
         
         
 
