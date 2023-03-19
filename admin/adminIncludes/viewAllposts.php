@@ -73,8 +73,10 @@
 
         <table class = "table table-bordered table-hover">
 
-
-        <div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
+        <?php
+        
+        if($_SESSION['userRole'] == "Admin"){
+            echo '<div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
             <select class="form-control" name="bulkOptions" id="bulk">
                 <option value="">Select option</option>
                 <option value="published">Publish</option>
@@ -86,10 +88,30 @@
         </div>
 
         <div class="col-xs-4">
-
         <input type="submit" name="submit" value="Apply" class="btn btn-success" id="bulk">
         <a href="Posts.php?source=addPost" class="btn btn-primary" id="bulk">Add new post</a>
+        </div>';
+
+        } else {
+            //bulk options for subscriber
+            echo '<div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
+            <select class="form-control" name="bulkOptions" id="bulk">
+                <option value="">Select option</option>
+                <option value="delete">Delete</option>
+                <option value="clone">Clone</option>
+                <option value="resetViews">Reset views</option>
+            </select>
         </div>
+
+        <div class="col-xs-4">
+        <input type="submit" name="submit" value="Apply" class="btn btn-success" id="bulk">
+        <a href="Posts.php?source=addPost" class="btn btn-primary" id="bulk">Add new post</a>
+        </div>';
+        }
+        
+        ?>
+
+        
 
 
             <thead>
@@ -113,70 +135,132 @@
             <tbody>
             
                 <?php
-                
-                $query = "SELECT * FROM posts ORDER BY id_post DESC";
-                $select_posts = mysqli_query($connection, $query);
 
+                if($_SESSION['userRole'] == "Admin"){
 
-                while($row = mysqli_fetch_assoc($select_posts)){
-                    $post_id = $row['id_post'];
-                    $post_author = $row['post_author'];
-                    $post_title = $row['post_title'];
-                    $post_cat_id = $row['id_post_category'];
-                    $post_status = $row['post_status'];
-                    $post_image = $row['post_image'];
-                    $post_tags = $row['post_tags'];
-                    $post_comment_count = $row['post_comment_count'];
-                    $post_date = $row['post_date'];
-                    $post_views = $row['post_views'];
+                    $query = "SELECT * FROM posts ORDER BY id_post DESC";
+                    $select_posts = mysqli_query($connection, $query);
 
-                    echo "<tr>";
-                    ?>
+                    while($row = mysqli_fetch_assoc($select_posts)){
+                        $post_id = $row['id_post'];
+                        $post_author = $row['post_author'];
+                        $post_title = $row['post_title'];
+                        $post_cat_id = $row['id_post_category'];
+                        $post_status = $row['post_status'];
+                        $post_image = $row['post_image'];
+                        $post_tags = $row['post_tags'];
+                        $post_comment_count = $row['post_comment_count'];
+                        $post_date = $row['post_date'];
+                        $post_views = $row['post_views'];
 
-                    <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
+                        echo "<tr>";
+                        ?>
 
-                    <?php
-                    
-                    echo "<td>{$post_id}</td>";
-                    echo "<td>{$post_author}</td>";
-                    echo "<td>{$post_title}</td>";
+                        <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
 
-                    $query = "SELECT * FROM categories WHERE id_cat = $post_cat_id";
-                    $select_categories_id = mysqli_query($connection, $query);
+                        <?php
+                        
+                        echo "<td>{$post_id}</td>";
+                        echo "<td>{$post_author}</td>";
+                        echo "<td>{$post_title}</td>";
 
+                        $query = "SELECT * FROM categories WHERE id_cat = $post_cat_id";
+                        $select_categories_id = mysqli_query($connection, $query);
 
-                    while($row = mysqli_fetch_assoc($select_categories_id)){
-                    $id_cat = $row['id_cat'];
-                    $cat_title = $row['cat_title'];
+                        while($row = mysqli_fetch_assoc($select_categories_id)){
+                        $id_cat = $row['id_cat'];
+                        $cat_title = $row['cat_title'];
 
-                    echo "<td>{$cat_title}</td>";
+                        echo "<td>{$cat_title}</td>";
+                        }
+
+                        echo "<td>{$post_status}</td>";
+                        echo "<td><img width='100' src = '../images/{$post_image}' alt = 'image'></td>";
+                        echo "<td>{$post_tags}</td>";
+
+                        $query = "SELECT * FROM comments WHERE id_comment_post = $post_id";
+                        $sendCommentcountQuery = mysqli_query($connection, $query);
+                        confirmQuery($sendCommentcountQuery);
+
+                        while($row = mysqli_fetch_array($sendCommentcountQuery)){
+                            $comment_id = $row['id_comment'];
+                        }
+                        
+                        $commentCount = mysqli_num_rows($sendCommentcountQuery);
+
+                        echo "<td><a href='postComments.php?id=$post_id'>{$commentCount}</a></td>";
+                        echo "<td>{$post_date}</td>";
+                        echo "<td>{$post_views}</td>";
+                        echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
+                        echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
+                        echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?'); \" href='Posts.php?delete={$post_id}'>Delete</a></td>";
+                        echo "</tr>";
+
                     }
 
+                } else {
 
+                    $userCheck = $_SESSION['username'];
 
-                    echo "<td>{$post_status}</td>";
-                    echo "<td><img width='100' src = '../images/{$post_image}' alt = 'image'></td>";
-                    echo "<td>{$post_tags}</td>";
+                    $query = "SELECT * FROM posts WHERE post_author = '{$userCheck}' ORDER BY id_post DESC";
+                    $select_posts = mysqli_query($connection, $query);
 
+                    while($row = mysqli_fetch_assoc($select_posts)){
+                        $post_id = $row['id_post'];
+                        $post_author = $row['post_author'];
+                        $post_title = $row['post_title'];
+                        $post_cat_id = $row['id_post_category'];
+                        $post_status = $row['post_status'];
+                        $post_image = $row['post_image'];
+                        $post_tags = $row['post_tags'];
+                        $post_comment_count = $row['post_comment_count'];
+                        $post_date = $row['post_date'];
+                        $post_views = $row['post_views'];
 
-                    $query = "SELECT * FROM comments WHERE id_comment_post = $post_id";
-                    $sendCommentcountQuery = mysqli_query($connection, $query);
-                    confirmQuery($sendCommentcountQuery);
+                        echo "<tr>";
+                        ?>
 
-                    while($row = mysqli_fetch_array($sendCommentcountQuery)){
-                        $comment_id = $row['id_comment'];
+                        <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
+
+                        <?php
+                        
+                        echo "<td>{$post_id}</td>";
+                        echo "<td>{$post_author}</td>";
+                        echo "<td>{$post_title}</td>";
+
+                        $query = "SELECT * FROM categories WHERE id_cat = $post_cat_id";
+                        $select_categories_id = mysqli_query($connection, $query);
+
+                        while($row = mysqli_fetch_assoc($select_categories_id)){
+                        $id_cat = $row['id_cat'];
+                        $cat_title = $row['cat_title'];
+
+                        echo "<td>{$cat_title}</td>";
+                        }
+
+                        echo "<td>{$post_status}</td>";
+                        echo "<td><img width='100' src = '../images/{$post_image}' alt = 'image'></td>";
+                        echo "<td>{$post_tags}</td>";
+
+                        $query = "SELECT * FROM comments WHERE id_comment_post = $post_id";
+                        $sendCommentcountQuery = mysqli_query($connection, $query);
+                        confirmQuery($sendCommentcountQuery);
+
+                        while($row = mysqli_fetch_array($sendCommentcountQuery)){
+                            $comment_id = $row['id_comment'];
+                        }
+                        
+                        $commentCount = mysqli_num_rows($sendCommentcountQuery);
+
+                        echo "<td><a href='postComments.php?id=$post_id'>{$commentCount}</a></td>";
+                        echo "<td>{$post_date}</td>";
+                        echo "<td>{$post_views}</td>";
+                        echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
+                        echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
+                        echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?'); \" href='Posts.php?delete={$post_id}'>Delete</a></td>";
+                        echo "</tr>";
+
                     }
-                    
-                    $commentCount = mysqli_num_rows($sendCommentcountQuery);
-
-                    echo "<td><a href='postComments.php?id=$post_id'>{$commentCount}</a></td>";
-                    echo "<td>{$post_date}</td>";
-                    echo "<td>{$post_views}</td>";
-                    echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
-                    echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
-                    echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?'); \" href='Posts.php?delete={$post_id}'>Delete</a></td>";
-                    echo "</tr>";
-
 
                 }
                 

@@ -63,9 +63,15 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="admin">Admin</a>
-                    </li>
+
+                    <?php
+                    if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == "Admin"){
+                        echo "<li><a href='admin'>Admin</a></li>";
+                    }
+                    
+
+                    ?>
+
 
                     <li>
                         <a class="marginRight10" href="registration.php">Register now</a>

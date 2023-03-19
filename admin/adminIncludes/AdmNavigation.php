@@ -7,7 +7,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">CMS</a>
+                <?php
+                if($_SESSION['userRole'] == "Admin"){
+                    echo '<a class="navbar-brand" href="index.php">CMS Admin</a>';
+                } else {
+                    echo '<a class="navbar-brand" href="subIndex.php">CMS</a>';
+                }
+                ?>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -55,29 +61,13 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="posts_dropdown" class="collapse">
-                            <li>
-                                <a href="./Posts.php">View All Posts</a>
-                            </li>
-                            <li>
-                                <a href="Posts.php?source=addPost">Add a Post</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="./Categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a>
-                    </li>
-                    
-                    <li>
-                        <a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
-                    </li>
-                    
-                    <li>
+
+                <?php
+
+                    if($_SESSION['userRole'] == 'Admin'){
+                        echo '<li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>';
+
+                        echo '<li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -87,11 +77,48 @@
                                 <a href="Users.php?source=addUser">Add User</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>';
 
-                    <li>
-                        <a href="profile.php"><i class = "fa fa-fw fa-dashboard"></i> Profile</a>
-                    </li>
+                        echo '<li><a href="./Categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a></li>';
+
+                        echo '<li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="posts_dropdown" class="collapse">
+                            <li>
+                                <a href="./Posts.php">View All Posts</a>
+                            </li>
+                            <li>
+                                <a href="Posts.php?source=addPost">Add a Post</a>
+                            </li>
+                        </ul>
+                    </li>';
+
+                    echo '<li><a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a></li>';
+    
+                    } else{//nav items for subscriber
+                        echo '<li><a href="subIndex.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>';
+
+                        echo '<li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i>My Posts <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="posts_dropdown" class="collapse">
+                            <li>
+                                <a href="./Posts.php">View All Posts</a>
+                            </li>
+                            <li>
+                                <a href="Posts.php?source=addPost">Add a Post</a>
+                            </li>
+                        </ul>
+                    </li>';
+
+                    echo '<li><a href="./comments.php"><i class="fa fa-fw fa-file"></i>My Comments</a></li>';
+
+                    }
+                    
+
+
+                    ?>
+
+                    <li><a href="profile.php"><i class = "fa fa-fw fa-dashboard"></i> Profile</a></li>
 
                 </ul>
             </div>

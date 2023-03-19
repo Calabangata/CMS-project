@@ -13,9 +13,17 @@ if(isset($_POST['create_post'])){
 // $post_tags = $_POST['post_tags'];
 // $post_content = $_POST['post_content'];
 $post_title = mysqli_real_escape_string($connection, $_POST['title']);
-$post_author = mysqli_real_escape_string($connection, $_POST['author']);
+
+if($_SESSION['userRole'] != "Admin"){
+    $post_author = mysqli_real_escape_string($connection, $_SESSION['username']);
+    $post_status = "draft";
+} else {
+    $post_author = mysqli_real_escape_string($connection, $_POST['author']);
+    $post_status = mysqli_real_escape_string($connection, $_POST['post_status']);
+}
+
+
 $post_category_id = $_POST['post_category'];
-$post_status = mysqli_real_escape_string($connection, $_POST['post_status']);
 $post_image = $_FILES['image']['name'];//
 $post_image_temp = $_FILES['image']['tmp_name'];//
 $post_tags = mysqli_real_escape_string($connection, $_POST['post_tags']);
@@ -81,15 +89,12 @@ echo "<p class = 'bg-success'>Post created! <a href = '../post.php?p_id={$postID
    </select>
 </div>
 
-<div class="form-group">
+<?php
+if($_SESSION['userRole'] == "Admin"){
+    echo '<div class="form-group">
     <label for="title">Author</label>
     <input type="text" class="form-control" name="author">
 </div>
-
-<!-- <div class="form-group">
-    <label for="post_status">Post Status</label>
-    <input type="text" class="form-control" name="post_status">
-</div> -->
 
 <div class="form-group">
     <select name="post_status" id="post_status">
@@ -97,7 +102,11 @@ echo "<p class = 'bg-success'>Post created! <a href = '../post.php?p_id={$postID
     <option value="draft">Draft</option>
     <option value="published">Published</option>
     </select>
-</div>
+</div>';
+}
+
+
+?>
 
 <div class="form-group">
     <label for="post_image">Post Image</label>
