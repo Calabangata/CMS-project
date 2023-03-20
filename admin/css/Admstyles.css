@@ -189,3 +189,7 @@
       transform: scale(2);
     }
   }
+
+  #divSubChart{
+    padding-left: 230px;
+  }

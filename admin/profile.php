@@ -95,23 +95,20 @@ $query = "UPDATE users SET ";
     <input type="text" value="<?php echo $lastname; ?>" class="form-control" name="lastname">
 </div>
 
+
 <div class="form-group">
     <label for="user_role">Role: </label>
    <select name="user_role"  id="">
-
    <option value="Subscriber"><?php echo $role; ?></option>
-
    <?php
    if($role == 'Admin'){
-    echo "<option value='Subscriber'>Subscriber</option>";
-   } else {
-    echo "<option value='Admin'>Admin</option>";
-   }
-   
-    
-
+    if($role == 'Admin'){
+        echo "<option value='Subscriber'>Subscriber</option>";
+    } else {
+        echo "<option value='Admin'>Admin</option>";
+    }
+}
     ?>
-
    </select>
 </div>
 

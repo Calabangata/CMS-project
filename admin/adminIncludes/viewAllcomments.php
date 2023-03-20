@@ -39,16 +39,29 @@ if(isset($_POST['checkBoxArray'])){
 
 <table class = "table table-bordered table-hover">
 
-<div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
+    <?php
+    if($_SESSION['userRole'] == "Admin"){
+        echo '<div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
             <select class="form-control" name="bulkOptions" id="bulk">
                 <option value="">Select option</option>
                 <option value="approved">Approve</option>
                 <option value="unapproved">Unapprove</option>
                 <option value="delete">Delete</option>
-                <!-- <option value="clone">Clone</option> -->
-                
+                <!-- <option value="clone">Clone</option> -->   
             </select>
-        </div>
+        </div>';
+    } else {
+        echo '<div id="bulkOptionsContainer" class="col-xs-4" style="padding-left: 0px;">
+        <select class="form-control" name="bulkOptions" id="bulk">
+            <option value="">Select option</option>
+            <option value="delete">Delete</option>
+        </select>
+    </div>';
+    }
+    
+    
+    ?>
+        
 
         <div class="col-xs-4">
 

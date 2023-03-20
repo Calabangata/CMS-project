@@ -36,9 +36,9 @@
                        
                 <!-- /.row -->
                 
-<div class="row">
+<div class="row" id="divSubChart">
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-red">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -47,7 +47,8 @@
                             <div class="col-xs-9 text-right">
 
                             <?php
-                            $query = "SELECT * FROM posts";
+                            $userCheck = $_SESSION['username'];
+                            $query = "SELECT * FROM posts WHERE post_author = '{$userCheck}'";
                             $select_all_post = mysqli_query($connection, $query);
                             $post_count = mysqli_num_rows($select_all_post);
                             echo "<div class='huge'>{$post_count}</div>";
@@ -77,7 +78,7 @@
                     <div class="col-xs-9 text-right">
 
                             <?php
-                            $query = "SELECT * FROM comments";
+                            $query = "SELECT * FROM comments WHERE comment_author = '{$userCheck}'";
                             $select_all_comments = mysqli_query($connection, $query);
                             $comment_count = mysqli_num_rows($select_all_comments);
                             echo "<div class='huge'>{$comment_count}</div>";
@@ -97,7 +98,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <!-- <div class="col-lg-3 col-md-6">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -107,10 +108,10 @@
                     <div class="col-xs-9 text-right">
 
                     <?php
-                            $query = "SELECT * FROM users";
-                            $select_all_users = mysqli_query($connection, $query);
-                            $user_count = mysqli_num_rows($select_all_users);
-                            echo "<div class='huge'>{$user_count}</div>";
+                            // $query = "SELECT * FROM users";
+                            // $select_all_users = mysqli_query($connection, $query);
+                            // $user_count = mysqli_num_rows($select_all_users);
+                            // echo "<div class='huge'>{$user_count}</div>";
                             ?>
 
                     
@@ -126,9 +127,9 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div> -->
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-red">
+        <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -164,22 +165,22 @@
 
                 <?php
                 
-                $query = "SELECT * FROM posts WHERE post_status = 'published'";
+                $query = "SELECT * FROM posts WHERE post_status = 'published' AND post_author = '{$userCheck}'";
                 $select_all_published_post = mysqli_query($connection, $query);
                 $post_published_count = mysqli_num_rows($select_all_published_post);
 
-                $query = "SELECT * FROM posts WHERE post_status = 'draft'";
+                $query = "SELECT * FROM posts WHERE post_status = 'draft' AND post_author = '{$userCheck}'";
                 $select_all_draft_post = mysqli_query($connection, $query);
                 $post_draft_count = mysqli_num_rows($select_all_draft_post);
                 
-                $query = "SELECT * FROM comments WHERE comment_status ='unapproved'";
+                $query = "SELECT * FROM comments WHERE comment_status ='unapproved' AND comment_author = '{$userCheck}'";
                 $unapproved_comments_query = mysqli_query($connection, $query);
                 $unapproved_comments = mysqli_num_rows($unapproved_comments_query);
                 
 
-                $query = "SELECT * FROM users WHERE user_role = 'Subscriber'";
-                $select_all_sub = mysqli_query($connection, $query);
-                $subs_count = mysqli_num_rows($select_all_sub);
+                //$query = "SELECT * FROM users WHERE user_role = 'Subscriber'";
+                //$select_all_sub = mysqli_query($connection, $query);
+                // $subs_count = mysqli_num_rows($select_all_sub);
                 
                 
                 
@@ -199,11 +200,11 @@
 
             <?php
             
-            $element_text = ['All posts', 'Active Posts', 'Draft posts', 'Comments', 'Pending comments', 'Users', 'Subscribers', 'Categories'];
+            $element_text = ['All posts', 'Active Posts', 'Draft posts', 'Comments', 'Pending comments', 'Categories'];
 
-            $element_count = [$post_count, $post_published_count, $post_draft_count, $comment_count, $unapproved_comments, $user_count, $subs_count, $categories_count];
+            $element_count = [$post_count, $post_published_count, $post_draft_count, $comment_count, $unapproved_comments, $categories_count];
 
-            for($i = 0; $i <8; $i++) {
+            for($i = 0; $i <6; $i++) {
                 echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
             }
             ?>
