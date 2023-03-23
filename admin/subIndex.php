@@ -19,21 +19,14 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-
                         <h1 class="page-header">
                             Welcome
                             <small><?php echo $_SESSION['username'];?></small>
                         </h1>
-
-                        
-
-                        
                     </div>
                 </div>
                 <!-- /.row -->
 
-
-                       
                 <!-- /.row -->
                 
 <div class="row" id="divSubChart">
@@ -54,7 +47,6 @@
                             echo "<div class='huge'>{$post_count}</div>";
                             ?>
 
-                        
                                 <div>Posts</div>
                             </div>
                         </div>
@@ -98,45 +90,7 @@
             </a>
         </div>
     </div>
-    <!-- <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-user fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-
-                    <?php
-                            // $query = "SELECT * FROM users";
-                            // $select_all_users = mysqli_query($connection, $query);
-                            // $user_count = mysqli_num_rows($select_all_users);
-                            // echo "<div class='huge'>{$user_count}</div>";
-                            ?>
-
-                    
-                        <div> Users</div>
-                    </div>
-                </div>
-            </div>
-            <a href="Users.php">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div> -->
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-list fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-
+ 
                     <?php
                             $query = "SELECT * FROM categories";
                             $select_all_categories = mysqli_query($connection, $query);
@@ -176,13 +130,6 @@
                 $query = "SELECT * FROM comments WHERE comment_status ='unapproved' AND comment_author = '{$userCheck}'";
                 $unapproved_comments_query = mysqli_query($connection, $query);
                 $unapproved_comments = mysqli_num_rows($unapproved_comments_query);
-                
-
-                //$query = "SELECT * FROM users WHERE user_role = 'Subscriber'";
-                //$select_all_sub = mysqli_query($connection, $query);
-                // $subs_count = mysqli_num_rows($select_all_sub);
-                
-                
                 
                 ?>
 
@@ -228,16 +175,13 @@
 
 <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>
 
-
                 </div>
-
 
             </div>
             <!-- /.container-fluid -->
 
         </div>
         <!-- /#page-wrapper -->
-
 
     </div>
     <!-- /#wrapper -->
