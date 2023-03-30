@@ -1,4 +1,7 @@
-<?php include "adminIncludes/AdmHeader.php"; ?>
+<?php
+ include "adminIncludes/AdmHeader.php";
+ include "adminIncludes/modalDelete.php";    
+?>
 
 
 <body>

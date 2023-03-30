@@ -68,6 +68,62 @@ setInterval(function(){
 }, 500);
 }
 
+$(document).ready(function(){
+
+    $(".deleteLink").on('click', function(){
+
+
+        let id = "";
+        let delLink = "";
+
+        switch ($(this).attr("id")) {
+
+            case 'postDeletelink':
+                id = $(this).attr("rel");
+                delLink = "Posts.php?delete=" + id + " ";
+                break;
+
+                case 'postDeletelinkSub':
+                id = $(this).attr("rel");
+                delLink = "Posts.php?delete=" + id + " ";
+                break;
+
+            case 'userDeletelink':
+                id = $(this).attr("rel");
+                delLink = "Users.php?delete=" + id + " ";
+                break;
+
+            case 'commentDeletelink':
+                id = $(this).attr("rel");
+                delLink = "comments.php?delete=" + id + " ";
+                break;
+
+            case 'commentDeletelinkSub':
+                id = $(this).attr("rel");
+                delLink = "comments.php?delete=" + id + " ";
+                break;
+
+            case 'categoryDeletelink':
+                id = $(this).attr("rel");
+                delLink = "Categories.php?delete=" + id + " ";
+                break;
+        
+            default:
+                break;
+        }
+        
+
+        $(".modal_delete").attr("href", delLink);
+
+        $("#myModal").modal('show');
+
+        // if($(this).attr("id") == "postDeletelink")
+        // console.log($(this).attr("id"));
+        
+    });
+
+});
+
 
 
 

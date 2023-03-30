@@ -96,7 +96,9 @@ while($row = mysqli_fetch_assoc($select_categories)){
     echo "<tr>";
     echo "<td>{$id_cat}</td>";
     echo "<td>{$cat_title}</td>";
-    echo "<td><a href = 'Categories.php?delete={$id_cat}'>Delete</a></td>";
+    //echo "<td><a href = 'Categories.php?delete={$id_cat}'>Delete</a></td>";
+    echo "<td><a rel='$id_cat' href='javascript:void(0)' class='deleteLink' id='categoryDeletelink'>Delete</a></td>";
+
     echo "<td><a href = 'Categories.php?edit={$id_cat}'>Edit</a></td>";
     echo "</tr>";
 }

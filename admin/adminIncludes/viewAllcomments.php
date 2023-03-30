@@ -1,4 +1,5 @@
 <?php
+include "modalDelete.php";
 
 if(isset($_POST['checkBoxArray'])){
 
@@ -128,7 +129,8 @@ if(isset($_POST['checkBoxArray'])){
                     echo "<td>{$comment_date}</td>";
                     echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
                     echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
-                    echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
+                    echo "<td><a rel='$comment_id' href='javascript:void(0)' class='deleteLink' id='commentDeletelink'>Delete</a></td>";
+                    //echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
                     echo "</tr>";
 
                 }
@@ -174,7 +176,9 @@ if(isset($_POST['checkBoxArray'])){
                     echo "<td>{$comment_date}</td>";
                     echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
                     echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
-                    echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
+                    echo "<td><a rel='$comment_id' href='javascript:void(0)' class='deleteLink' id='commentDeletelinkSub'>Delete</a></td>";
+
+                    //echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
                     echo "</tr>";
 
                 }

@@ -1,5 +1,5 @@
 <?php
-
+include "modalDelete.php";
 if(isset($_POST['checkBoxArray'])){
 
 
@@ -124,7 +124,8 @@ if(isset($_POST['checkBoxArray'])){
                      echo "<td><a href='Users.php?changeAdmin={$user_id}'>Change to admin</a></td>";
                      echo "<td><a href='Users.php?changeSub={$user_id}'>Change to subscriber</a></td>";
                      echo "<td><a href='Users.php?source=editUser&update_user={$user_id}'>Update User</a></td>";
-                    echo "<td><a href='Users.php?delete={$user_id}'>Delete</a></td>";
+                     echo "<td><a rel='$user_id' href='javascript:void(0)' class='deleteLink' id='userDeletelink'>Delete</a></td>";
+                    // echo "<td><a href='Users.php?delete={$user_id}'>Delete</a></td>";
                     echo "</tr>";
 
 
@@ -143,7 +144,8 @@ if(isset($_POST['checkBoxArray'])){
 
         <?php 
         
-        if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin' && isset($_GET['delete'])){
+         //if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin' && isset($_GET['delete'])){
+            if(isset($_GET['delete'])){
 
             $user_id = $_GET['delete'];
             $query = "DELETE FROM users WHERE user_id = $user_id";

@@ -195,7 +195,7 @@
                         echo "<td>{$post_views}</td>";
                         echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
                         echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
-                        echo "<td><a rel='$post_id' href='javascript:void(0)' class='deleteLink'>Delete</a></td>";
+                        echo "<td><a rel='$post_id' href='javascript:void(0)' class='deleteLink' id='postDeletelink'>Delete</a></td>";
                         //echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?'); \" href='Posts.php?delete={$post_id}'>Delete</a></td>";
                         echo "</tr>";
 
@@ -260,7 +260,7 @@
                         echo "<td>{$post_views}</td>";
                         echo "<td><a href='../post.php?p_id=$post_id'>View post</a></td>";
                         echo "<td><a href='Posts.php?source=editPost&p_id={$post_id}'>Edit</a></td>";
-                        echo "<td><a href='javascript:void(0)' class='deleteLink'>Delete</a></td>";
+                        echo "<td><a rel='$post_id' href='javascript:void(0)' class='deleteLink' id='postDeletelinkSub'>Delete</a></td>";
 
                         //echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?'); \" href='Posts.php?delete={$post_id}'>Delete</a></td>";
                         echo "</tr>";
@@ -291,24 +291,3 @@
         }
         
         ?>
-
-        <script>
-
-        $(document).ready(function(){
-
-            $(".deleteLink").on('click', function(){
-
-                let id = $(this).attr("rel");
-
-                let delLink = "Posts.php?delete=" + id + " ";
-
-                $(".modal_delete").attr("href", delLink);
-
-                $("#myModal").modal('show');
-
-                
-            });
-
-        });
-
-        </script>
