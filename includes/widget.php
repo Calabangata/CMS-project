@@ -2,20 +2,20 @@
 
 if(isset($_POST['contact'])){
 
-    $to = "rulevkristian@gmail.com";
+    //$to = "rulevkristian@gmail.com";
     
     // $firstname = $_POST['firstname'];
     // $lastname = $_POST['lastname'];
-    $enteredEmail = $_POST['email'];
+    // $enteredEmail = $_POST['email'];
 
-    $subject = $_POST['subject'];
+    // $subject = $_POST['subject'];
 
-    $subject = wordwrap($subject, 70);
-    $content = $_POST['content'];
+    // $subject = wordwrap($subject, 70);
+    // $content = $_POST['content'];
 
-    $header = "From: " . $enteredEmail;
+    // $header = "From: " . $enteredEmail;
 
-    //mail($to, $subject, $content, $header);
+    // mail($to, $subject, $content, $header);
 
 
 }
