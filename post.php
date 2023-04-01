@@ -26,9 +26,20 @@
                 $viewsQuery = "UPDATE posts SET post_views = post_views + 1 WHERE id_post = $that_post_id";
                 $sendQuery = mysqli_query($connection, $viewsQuery);
                 confirmQuery($sendQuery);
+
+                if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'Admin'){
+                    $query = "SELECT * FROM posts WHERE id_post = $that_post_id ";
+                } else {
+                    $query = "SELECT * FROM posts WHERE id_post = $that_post_id AND post_status = 'published'";
+                }
             
-            $query = "SELECT * FROM posts WHERE id_post = $that_post_id ";
+            
             $select_all_posts_query = mysqli_query($connection, $query);
+
+            if(mysqli_num_rows($select_all_posts_query) < 1){
+                echo "<img class='img-responsive margins' src='images/NoResultsFound.png'>";
+            
+            } else {
 
                 while($row = mysqli_fetch_assoc($select_all_posts_query)){
 
@@ -57,9 +68,7 @@
             
         <?php }
         
-            } else {
-                header("Location: index.php");
-            }
+            
         
         ?>
 
@@ -197,7 +206,10 @@
                     </div>
 
                     <?php
-                        }
+                        } }
+                    } else {
+                        header("Location: index.php");
+                    }
                     ?>
 
             </div>

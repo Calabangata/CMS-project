@@ -19,7 +19,7 @@
                 $post_category_id = $_GET['category'];
             }
             
-            $query = "SELECT * FROM posts WHERE id_post_category = $post_category_id";
+            $query = "SELECT * FROM posts WHERE id_post_category = $post_category_id AND post_status = 'published'";
             $select_all_posts_query = mysqli_query($connection, $query);
             $simpleCnt = 0;
 

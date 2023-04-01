@@ -39,13 +39,14 @@
                 $page_1 = ($page * $postsPerpage) - $postsPerpage;
             }
 
-            $postCountQuery = "SELECT * FROM posts";
+            $postCountQuery = "SELECT * FROM posts WHERE post_status = 'published'";
             $findCount = mysqli_query($connection, $postCountQuery);
             $count = mysqli_num_rows($findCount);          
             $count = ceil($count / $postsPerpage); // counting how many pages I get
             
             $query = "SELECT * FROM posts LIMIT $page_1, $postsPerpage";
             $select_all_posts_query = mysqli_query($connection, $query);
+            $simplecnt = 0;
 
                 while($row = mysqli_fetch_assoc($select_all_posts_query)){
                     $post_id = $row['id_post'];
@@ -79,7 +80,18 @@
 
                 <!-- <hr> -->
             
-            <?php } } ?>
+            <?php
+                $simplecnt = 1;
+            }
+        
+        } 
+
+        if($simplecnt == 0){
+            echo "<img class='img-responsive margins' src='images/NoResultsFound.png'>";
+            echo "<a class='btn btn-primary' href='addPostfromCategory.php'>Add a post</a>";
+        }
+        
+        ?>
 
 
             </div>
