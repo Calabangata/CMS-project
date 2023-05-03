@@ -182,7 +182,7 @@
                 $query .= "ORDER BY id_comment DESC ";
 
                 $select_comment_query = mysqli_query($connection, $query);
-                confirmQuery($query);
+                confirmQuery($select_comment_query);
 
                 while($row = mysqli_fetch_array(($select_comment_query))){
                     $comment_date = $row['comment_date'];

@@ -124,4 +124,17 @@ function redirect($location){
     return header("Location:" . $location);
 }
 
+function recordCount($tableName){
+    global $connection;
+
+    $query = "SELECT * FROM " . $tableName;
+    $select_all_record = mysqli_query($connection, $query);
+    confirmQuery($select_all_record);
+    $result = mysqli_num_rows($select_all_record);
+
+    return $result;
+    
+
+}
+
 ?>
