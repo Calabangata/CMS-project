@@ -133,7 +133,17 @@ function recordCount($tableName){
     $result = mysqli_num_rows($select_all_record);
 
     return $result;
-    
+}
+
+function recordCountStatus($tableName, $tableColumn, $status){
+
+    global $connection;
+    $query = "SELECT * FROM $tableName WHERE $tableColumn = '$status'";
+    $select_all_records_status = mysqli_query($connection, $query);
+    confirmQuery($select_all_records_status);
+
+    $result = mysqli_num_rows($select_all_records_status);
+    return $result;
 
 }
 

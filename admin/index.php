@@ -164,22 +164,16 @@
 
                 <?php
                 
-                $query = "SELECT * FROM posts WHERE post_status = 'published'";
-                $select_all_published_post = mysqli_query($connection, $query);
-                $post_published_count = mysqli_num_rows($select_all_published_post);
-
-                $query = "SELECT * FROM posts WHERE post_status = 'draft'";
-                $select_all_draft_post = mysqli_query($connection, $query);
-                $post_draft_count = mysqli_num_rows($select_all_draft_post);
+                // $query = "SELECT * FROM posts WHERE post_status = 'published'";
+                // $select_all_published_post = mysqli_query($connection, $query);
+                // $post_published_count = mysqli_num_rows($select_all_published_post);
+                $post_published_count = recordCountStatus('posts', 'post_status', 'published');
                 
-                $query = "SELECT * FROM comments WHERE comment_status ='unapproved'";
-                $unapproved_comments_query = mysqli_query($connection, $query);
-                $unapproved_comments = mysqli_num_rows($unapproved_comments_query);
+                $post_draft_count = recordCountStatus('posts', 'post_status', 'draft');                
                 
-
-                $query = "SELECT * FROM users WHERE user_role = 'Subscriber'";
-                $select_all_sub = mysqli_query($connection, $query);
-                $subs_count = mysqli_num_rows($select_all_sub);
+                $unapproved_comments = recordCountStatus('comments', 'comment_status', 'unapproved');
+              
+                $subs_count = recordCountStatus('users', 'user_role', 'Subscriber');
                 
                 
                 
@@ -199,7 +193,7 @@
 
             <?php
             
-            $element_text = ['All posts', 'Active Posts', 'Draft posts', 'Comments', 'Pending comments', 'Users', 'Subscribers', 'Categories'];
+            $element_text = ['All posts', 'Active Posts', 'Draft posts', 'Comments', 'Pending comments', 'Total Users', 'Subscribers', 'Categories'];
 
             $element_count = [$post_count, $post_published_count, $post_draft_count, $comment_count, $unapproved_comments, $user_count, $subs_count, $categories_count];
 
