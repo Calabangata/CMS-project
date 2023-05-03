@@ -140,7 +140,9 @@
 
                 if($_SESSION['userRole'] == "Admin"){
 
-                    $query = "SELECT * FROM posts ORDER BY id_post DESC";
+                    //$query = "SELECT * FROM posts ORDER BY id_post DESC";
+                    $query = "SELECT * FROM posts LEFT JOIN categories ON posts.id_post_category = categories.id_cat ORDER BY posts.id_post DESC";
+
                     $select_posts = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_assoc($select_posts)){
@@ -154,6 +156,8 @@
                         $post_comment_count = $row['post_comment_count'];
                         $post_date = $row['post_date'];
                         $post_views = $row['post_views'];
+                        $id_cat = $row['id_cat'];
+                        $cat_title = $row['cat_title'];
 
                         echo "<tr>";
                         ?>
@@ -166,15 +170,15 @@
                         echo "<td>{$post_author}</td>";
                         echo "<td>{$post_title}</td>";
 
-                        $query = "SELECT * FROM categories WHERE id_cat = $post_cat_id";
-                        $select_categories_id = mysqli_query($connection, $query);
+                        // $query = "SELECT * FROM categories WHERE id_cat = $post_cat_id";
+                        // $select_categories_id = mysqli_query($connection, $query);
 
-                        while($row = mysqli_fetch_assoc($select_categories_id)){
-                        $id_cat = $row['id_cat'];
-                        $cat_title = $row['cat_title'];
+                        // while($row = mysqli_fetch_assoc($select_categories_id)){
+                        // $id_cat = $row['id_cat'];
+                        // $cat_title = $row['cat_title'];
 
                         echo "<td>{$cat_title}</td>";
-                        }
+                        //}
 
                         echo "<td>{$post_status}</td>";
                         echo "<td><img width='100' src = '../images/{$post_image}' alt = 'image'></td>";
@@ -206,7 +210,10 @@
                     $userCheck = $_SESSION['username'];
 
                     $query = "SELECT * FROM posts WHERE post_author = '{$userCheck}' ORDER BY id_post DESC";
+                    //$query = "SELECT * FROM posts WHERE posts.post_author = '{$userCheck}' LEFT JOIN categories ON posts.id_post_category = categories.id_cat ORDER BY posts.id_post DESC";
+
                     $select_posts = mysqli_query($connection, $query);
+                    
 
                     while($row = mysqli_fetch_assoc($select_posts)){
                         $post_id = $row['id_post'];
@@ -219,6 +226,8 @@
                         $post_comment_count = $row['post_comment_count'];
                         $post_date = $row['post_date'];
                         $post_views = $row['post_views'];
+                        // $id_cat = $row['id_cat'];
+                        // $cat_title = $row['cat_title'];
 
                         echo "<tr>";
                         ?>
