@@ -1,4 +1,10 @@
-<?php include "adminIncludes/AdmHeader.php"; ?>
+<?php include "adminIncludes/AdmHeader.php";
+
+if(!isAdmin($_SESSION['userRole'])){
+    header("Location: subIndex.php");
+}
+
+?>
 <body>
 
     <div id="wrapper">

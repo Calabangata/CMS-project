@@ -147,4 +147,37 @@ function recordCountStatus($tableName, $tableColumn, $status){
 
 }
 
+function isAdmin($userRole){
+    if($userRole == 'Admin'){
+        return true;
+    }
+    return false;
+}
+
+function userExists($username){
+    global $connection;
+
+    $query = "SELECT username FROM users WHERE username = '{$username}'";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+
+    if(mysqli_num_rows($result) > 0){
+        return true;
+    }
+    return false;
+}
+
+function emailExists($email){
+    global $connection;
+
+    $query = "SELECT email FROM users WHERE email = '{$email}'";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+
+        if(mysqli_num_rows($result) > 0){
+            return true;
+        }
+        return false;
+}
+
 ?>

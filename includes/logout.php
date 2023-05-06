@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include "db.php";
 session_start();
 

@@ -16,7 +16,11 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-        if(!empty($username) && !empty($email) && !empty($password) && !empty($firstname) && !empty($lastname)){
+    if(userExists($username)){
+
+        $message = "The username you want to use is already taken!";
+
+    } else if(!empty($username) && !empty($email) && !empty($password) && !empty($firstname) && !empty($lastname)){
 
         $username = mysqli_real_escape_string($connection, $username);
         $firstname = mysqli_real_escape_string($connection, $firstname);
@@ -28,10 +32,9 @@ if(isset($_POST['submit'])){
 
         $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
 
-        $query = "SELECT * FROM users WHERE email = '{$email}'";
-        $sendquery = mysqli_query($connection, $query);
+        
 
-        if(mysqli_num_rows($sendquery) > 0){
+        if(emailExists($email)){
 
             $message = "This email is already used!";
 
