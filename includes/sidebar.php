@@ -22,7 +22,7 @@
     <!-- Login -->
     <div class="well">
         <h4>Login</h4>
-        <form action="includes/login.php" method="post">
+        <form action="./login.php" method="post">
         <div class="form-group">
             <input name = "username" type="text" class="form-control" placeholder="Enter username">
             
@@ -34,10 +34,11 @@
                 <button class="btn btn-primary" name="login" type="submit">
                     Submit
                 </button>
-
-
-
             </span>
+        </div>
+
+        <div class="form-group">
+            <a href="forgotPassword.php?forgot=<?php echo uniqid(true); ?>">Forgot Password?</a>
         </div>
         </form>
         <!-- /.input-group -->

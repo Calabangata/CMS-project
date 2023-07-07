@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+session_start();
+?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     
         <!-- <div class="container"> -->
@@ -65,19 +67,30 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <?php
-                    if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == "Admin"){
+                    // if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == "Admin"){
+                    //     echo "<li><a href='admin'>Admin</a></li>";
+                    // } else {
+                    //     echo "<li><a href='admin/subIndex.php'>Admin</a></li>";
+                    // }
+
+                     if(!isset($_SESSION['userRole'])){
+                         echo "<li><a href='Login.php'>Log In</a></li>";
+
+                         echo "<li><a class='marginRight10' href='registration.php'>Register now</a></li>";
+
+                     } else if($_SESSION['userRole'] == "Admin"){
                         echo "<li><a href='admin'>Admin</a></li>";
-                    } else {
+                     } else {
                         echo "<li><a href='admin/subIndex.php'>Admin</a></li>";
-                    }
+                     }
+
+
                     
 
                     ?>
 
 
-                    <li>
-                        <a class="marginRight10" href="registration.php">Register now</a>
-                    </li>
+                    
 
                     <li class="dropdown">
                         <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 10px;"><i class="fa fa-user"></i>  -->
