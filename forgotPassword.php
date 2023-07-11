@@ -1,6 +1,39 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 
+<?php
+
+if(!isset($_GET['forgot'])){
+    redirect('index.php');
+}
+
+// if(!ifItIsMethod('get') || !$_GET['forgot']){
+//     redirect('index.php');
+// }
+
+if(ifItIsMethod('post')){
+
+    if(isset($_POST['email'])){
+        $email = mysqli_real_escape_string($connection, $_POST['email']);
+
+        $tokenLength = 50;
+        $token = bin2hex(openssl_random_pseudo_bytes($tokenLength));
+
+        if(emailExists($email)){
+            if($stamenent = mysqli_prepare($connection, "UPDATE users  SET token = '{$token}' WHERE email = ?")){
+
+                mysqli_stmt_bind_param($stamenent, "s", $email);
+                mysqli_stmt_execute($stamenent);
+                mysqli_stmt_close($stamenent);
+            } else {
+                echo mysqli_error($connection);
+            }
+        }
+
+    }
+}
+
+?>
 
 <!-- Page Content -->
 <div class="container">
