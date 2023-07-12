@@ -1,7 +1,22 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+?>
+
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 
+<?php require './vendor/autoload.php'; ?>
+
+
+
+
+
+
+
 <?php
+
 
 if(!isset($_GET['forgot'])){
     redirect('index.php');
@@ -25,13 +40,43 @@ if(ifItIsMethod('post')){
                 mysqli_stmt_bind_param($stamenent, "s", $email);
                 mysqli_stmt_execute($stamenent);
                 mysqli_stmt_close($stamenent);
+
+                echo "hi";
+                /**
+                 * CONFIG PHP Mailer
+                 */
+                
+                $phpmailer = new PHPMailer(true);
+                $phpmailer->isSMTP();
+                $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+                $phpmailer->SMTPAuth = true;
+                $phpmailer->Port = 2525;
+                $phpmailer->Username = '1679badad0e510';
+                $phpmailer->Password = 'd6246723139720';
+                $phpmailer->SMTPSecure = false;
+                $phpmailer->isHTML(true);
+                $phpmailer->CharSet = 'UTF-8';
+
+                $phpmailer->setFrom('cmssystem@gmail.com', 'Kris R');
+                $phpmailer->addAddress($email);
+
+                $phpmailer->Subject = 'This is a test email';
+                $phpmailer->Body = 'Body of Email';
+
+                if($phpmailer->send()){
+                    echo "IT WORKSS YAYY";
+                } else {
+                    echo "NOT GOOD";
+                }
+
             } else {
                 echo mysqli_error($connection);
+            }
             }
         }
 
     }
-}
+
 
 ?>
 
