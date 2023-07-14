@@ -1,0 +1,17 @@
+{
+    "name": "calab/cm-sproject_f099987",
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Calab\\CmSprojectF099987\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kristiyan Rulev",
+            "email": "calabangata@abv.bg"
+        }
+    ]
+}

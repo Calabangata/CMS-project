@@ -41,7 +41,7 @@ if(ifItIsMethod('post')){
                 mysqli_stmt_execute($stamenent);
                 mysqli_stmt_close($stamenent);
 
-                echo "hi";
+                
                 /**
                  * CONFIG PHP Mailer
                  */
@@ -61,10 +61,12 @@ if(ifItIsMethod('post')){
                 $phpmailer->addAddress($email);
 
                 $phpmailer->Subject = 'This is a test email';
-                $phpmailer->Body = 'Body of Email';
+                $phpmailer->Body = '<p>Click here to reset your password: 
+                <a href="http://localhost/CMSProject_F099987/reset.php?email='.$email.'&token='.$token.' ">http://localhost/CMSProject_F099987/reset.php?email='.$email.'&token='.$token.'</a>
+                </p>';
 
                 if($phpmailer->send()){
-                    echo "IT WORKSS YAYY";
+                    $emailSent = true;
                 } else {
                     echo "NOT GOOD";
                 }
@@ -91,6 +93,7 @@ if(ifItIsMethod('post')){
                     <div class="panel-body">
                         <div class="text-center">
 
+                            <?php if(!isset($emailSent)): ?>
 
                                 <h3><i class="fa fa-lock fa-4x"></i></h3>
                                 <h2 class="text-center">Forgot Password?</h2>
@@ -116,6 +119,12 @@ if(ifItIsMethod('post')){
                                     </form>
 
                                 </div><!-- Body-->
+
+                                <?php else: ?>
+
+                                    <h2>Please check your email</h2>
+
+                                <?php endif; ?>
 
                         </div>
                     </div>
