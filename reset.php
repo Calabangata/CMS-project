@@ -4,27 +4,46 @@
 
 <?php
 
-$token = '985ee5949bf4c9e5bdb1f73a3c97585ad43b484230572560f6f7ba4b2855ac49db7de2cc43a494b2fb0bf63d6b17995b9861';
+if(!isset($_GET['email']) || !isset($_GET['token'])){
+    redirect('index.php');
+}
 
-// if($stmt = mysqli_prepare($connection, 'SELECT username, email, token FROM users WHERE token=?')){
-//     mysqli_stmt_bind_param($stmt, 's', $token);
+$token = $_GET['token'];
 
-//     mysqli_stmt_execute($stmt);
+if($stmt = mysqli_prepare($connection, 'SELECT username, email, token FROM users WHERE token=?')){
+    mysqli_stmt_bind_param($stmt, 's', $token);
 
-//     mysqli_stmt_bind_result($stmt, $username, $email, $token);
+    mysqli_stmt_execute($stmt);
 
-//     mysqli_stmt_fetch($stmt);
+    mysqli_stmt_bind_result($stmt, $username, $email, $token);
 
-//     mysqli_stmt_close($stmt);
+    mysqli_stmt_fetch($stmt);
 
-//     echo $username;
-// }
+    mysqli_stmt_close($stmt);
+
+    echo $username;
+    echo $email;
+    echo $token;
+}
 
 if(isset($_POST['password']) && isset($_POST['confirmPassword'])){
     echo "both passwords are set!";
 
-    if($_POST['password'] == $_POST['confirmPassword']){
-        echo "They match";
+    if($_POST['password'] === $_POST['confirmPassword']){
+        
+        $password = mysqli_real_escape_string($connection, $_POST['password']);
+
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        if($stmt = mysqli_prepare($connection, "UPDATE users SET token = '', user_password = '{$hashedPassword}' WHERE email = ?")){
+            mysqli_stmt_bind_param($stmt, 's', $email);
+            mysqli_stmt_execute($stmt);
+
+            if(mysqli_stmt_affected_rows($stmt) >= 1){
+                redirect('/CMSProject_F099987/login.php');
+            }
+        }
+ 
     }
 }
 
