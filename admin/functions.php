@@ -1,5 +1,13 @@
 <?php
 
+function imagePlaceholder($image = ''){
+    if(!$image){
+        return 'default-image.jpg';
+    } else {
+        return $image;
+    }
+}
+
 function onlineUsers(){
 
         if(isset($_GET['onlineusers'])){
