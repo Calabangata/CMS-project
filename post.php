@@ -11,6 +11,9 @@
 
         <div class="row">
 
+        <div class="col-md-8">
+            
+
             <?php
 
             if(isset($_GET['p_id'])){
@@ -58,6 +61,10 @@
                 <p><?php echo $post_content; ?></p>
 
                 <hr>
+
+                <!-- <div class="row">
+                    <p class="pull-right"><a href="">Like</a></p>
+                </div> -->
             
         <?php }
         
