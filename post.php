@@ -62,9 +62,15 @@
 
                 <hr>
 
-                <!-- <div class="row">
-                    <p class="pull-right"><a href="">Like</a></p>
-                </div> -->
+                <div class="row">
+                    <p class="pull-right"><a class="like" href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a></p>
+                </div>
+
+                <div class="row">
+                    <p class="pull-right"><a href="">Like: 10</a></p>
+                </div>
+
+                <div class="clearfix"></div>
             
         <?php }
         
@@ -153,20 +159,23 @@
                             if(isset($_SESSION['userRole'])){
 
                                 if(!empty($_POST['comment_content'])){
-                            echo "<label id='testing' for=''>Your comment will be approved shortly!</label>";
+                            echo "<label id='testing'>Your comment will be approved shortly!</label>";
                                 }
                             } else if(!empty($_POST['comment_author']) && !empty($_POST['comment_email']) && !empty($_POST['comment_content'])){
-                                echo "<label id='testing' for=''>Your comment will be approved shortly!</label>";
+                                echo "<label id='testing'>Your comment will be approved shortly!</label>";
                             }
                         } 
                          ?>
                         
                             <script>
-                            function hideMessage() {
-                                document.getElementById("testing").style.display = "none"
+
+                                function hideMessage() {
+                                document.getElementById('testing').style.display = "none"
                             }
                             setTimeout(hideMessage, 5000);
-
+                           
+                            
+                            
                             </script>
                         
                     </form>
@@ -225,3 +234,30 @@
        <?php
        include "includes/footer.php";
        ?>
+
+       <script>
+
+        $(document).ready(function(){
+
+            $('.like').click(function(){
+
+                let id_post = <?php echo $that_post_id; ?>;
+                let id_user = 28;
+                
+                $.ajax({
+                    url: "/CMSProject_F099987/post.php?p_id=<?php echo $that_post_id; ?>",
+                    type: 'post',
+                    data: {
+                        'liked': 1,
+                        'id_post': id_post,
+                        'id_user': id_user
+
+                    }
+                });
+
+            });
+
+        });
+
+
+       </script>
