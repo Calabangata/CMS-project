@@ -6,6 +6,26 @@
     <!-- Navigation -->
     <?php include "includes/navigation.php"; ?>
 
+    <?php 
+    if(isset($_POST['liked'])){
+        $id_post = $_POST['id_post'];
+        $id_user = $_POST['id_user'];
+
+        $findPostQuery = "SELECT * FROM posts WHERE id_post = $id_post";
+        $postResult = mysqli_query($connection, $findPostQuery);
+        $post = mysqli_fetch_array($postResult);
+        $likes = $post['likes'];
+
+        mysqli_query($connection, "UPDATE posts SET likes = $likes + 1 WHERE id_post = $id_post");
+
+        mysqli_query($connection, "INSERT INTO post_likes(user_id, post_id) VALUES($id_user, $id_post)");
+
+        exit();
+        
+    }
+
+    ?>
+
     <!-- Page Content -->
     <div class="container">
 
