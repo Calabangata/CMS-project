@@ -24,6 +24,24 @@
         
     }
 
+    if(isset($_POST['unliked'])){
+        $id_post = $_POST['id_post'];
+         $id_user = $_POST['id_user'];
+
+        $findPostQuery = "SELECT * FROM posts WHERE id_post = $id_post";
+        $postResult = mysqli_query($connection, $findPostQuery);
+        $post = mysqli_fetch_array($postResult);
+        $likes = $post['likes'];
+
+        mysqli_query($connection, "DELETE FROM post_likes WHERE post_id = $id_post AND user_id = $id_user");
+        
+        mysqli_query($connection, "UPDATE posts SET likes = $likes - 1 WHERE id_post = $id_post");
+
+        exit();
+        
+        
+    }
+
     ?>
 
     <!-- Page Content -->
@@ -84,6 +102,10 @@
 
                 <div class="row">
                     <p class="pull-right"><a class="like" href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a></p>
+                </div>
+
+                <div class="row">
+                    <p class="pull-right"><a class="unlike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span> Unlike</a></p>
                 </div>
 
                 <div class="row">
@@ -259,6 +281,8 @@
 
         $(document).ready(function(){
 
+            //Like
+
             $('.like').click(function(){
 
                 let id_post = <?php echo $that_post_id; ?>;
@@ -269,6 +293,24 @@
                     type: 'post',
                     data: {
                         'liked': 1,
+                        'id_post': id_post,
+                        'id_user': id_user
+
+                    }
+                });
+
+            });
+            //Unlike
+            $('.unlike').click(function(){
+
+                let id_post = <?php echo $that_post_id; ?>;
+                let id_user = 28;
+                
+                $.ajax({
+                    url: "/CMSProject_F099987/post.php?p_id=<?php echo $that_post_id; ?>",
+                    type: 'post',
+                    data: {
+                        'unliked': 1,
                         'id_post': id_post,
                         'id_user': id_user
 

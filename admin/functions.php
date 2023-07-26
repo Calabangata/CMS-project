@@ -8,6 +8,11 @@ function imagePlaceholder($image = ''){
     }
 }
 
+function query($query){
+    global $connection;
+    return mysqli_query($connection, $query);
+}
+
 function onlineUsers(){
 
         if(isset($_GET['onlineusers'])){
@@ -91,10 +96,11 @@ global $connection;
 
 function FindallCategories(){
 
-global $connection;
+// global $connection;
 
-$query = "SELECT * FROM categories";
-$select_categories = mysqli_query($connection, $query);
+ $query = "SELECT * FROM categories";
+// $select_categories = mysqli_query($connection, $query);
+$select_categories = query($query);
 
 
 while($row = mysqli_fetch_assoc($select_categories)){
@@ -104,7 +110,7 @@ while($row = mysqli_fetch_assoc($select_categories)){
     echo "<tr>";
     echo "<td>{$id_cat}</td>";
     echo "<td>{$cat_title}</td>";
-    //echo "<td><a href = 'Categories.php?delete={$id_cat}'>Delete</a></td>";
+    
     echo "<td><a rel='$id_cat' href='javascript:void(0)' class='deleteLink' id='categoryDeletelink'>Delete</a></td>";
 
     echo "<td><a href = 'Categories.php?edit={$id_cat}'>Edit</a></td>";
@@ -141,9 +147,25 @@ function ifItIsMethod($method = null){
 }
 
 function isLoggedIn(){
-    if(isset($_SESSION['user_role'])){
+    if(isset($_SESSION['userRole'])){
         return true;
     }
+    return false;
+}
+
+function getLoggedInUserId(){
+    if(isLoggedIn()){
+        $username = $_SESSION['username'];
+        //echo "logged in user before query: " . $username;
+        $result = query("SELECT * FROM users WHERE username='" . $_SESSION['username'] ."'");
+        $fetchedUser = mysqli_fetch_array($result);
+
+
+        if(mysqli_num_rows($result) >= 1){
+            return $fetchedUser['user_id'];
+        }
+    }
+    echo "false";
     return false;
 }
 
