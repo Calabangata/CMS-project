@@ -155,18 +155,27 @@ function isLoggedIn(){
 
 function getLoggedInUserId(){
     if(isLoggedIn()){
-        $username = $_SESSION['username'];
-        //echo "logged in user before query: " . $username;
         $result = query("SELECT * FROM users WHERE username='" . $_SESSION['username'] ."'");
+        confirmQuery($result);
         $fetchedUser = mysqli_fetch_array($result);
-
 
         if(mysqli_num_rows($result) >= 1){
             return $fetchedUser['user_id'];
         }
     }
-    echo "false";
     return false;
+}
+
+function didUserLikedThisPost($post_id = ''){
+    $result = query("SELECT * FROM post_likes WHERE user_id=" .getLoggedInUserId() . " AND post_id={$post_id}");
+    confirmQuery($result);
+    return mysqli_num_rows($result) >= 1 ? true : false;
+}
+
+function getPostLikes($post_id){
+    $result = query("SELECT * FROM post_likes WHERE post_id = $post_id");
+    confirmQuery($result);
+    echo mysqli_num_rows($result);
 }
 
 function checkIfUserIsLoggedInAndRedirect($redirectLocation = null){

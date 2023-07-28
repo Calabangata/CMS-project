@@ -100,16 +100,31 @@
 
                 <hr>
 
-                <div class="row">
-                    <p class="pull-right"><a class="like" href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a></p>
-                </div>
+                <?php if(isLoggedIn()){ ?>
 
                 <div class="row">
-                    <p class="pull-right"><a class="unlike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span> Unlike</a></p>
+                    <p class="pull-right"><a class="<?php echo didUserLikedThisPost($that_post_id) ? 'unlike' : 'like'; ?>"
+                    href=""><span class="glyphicon glyphicon-thumbs-up"
+                    data-toggle = "tooltip"
+                    data-placement = "top"
+                    title = "<?php echo didUserLikedThisPost($that_post_id) ? ' I have liked this before' : ' Want to like it?'; ?>"
+                    ></span>
+                    <?php echo didUserLikedThisPost($that_post_id) ? ' Unlike' : ' Like'; ?>
+                
+                
+                </a></p>
                 </div>
 
+                <?php } else { ?>
+
                 <div class="row">
-                    <p class="pull-right"><a href="">Like: 10</a></p>
+                    <p class="pull-right"><a class="btn btn-primary" href="./Login.php">Log in to Like</a></p>
+                </div>
+
+                <?php } ?>
+
+                <div class="row">
+                    <p class="pull-right">Likes: <?php getPostLikes($that_post_id); ?></p>
                 </div>
 
                 <div class="clearfix"></div>
@@ -281,12 +296,13 @@
 
         $(document).ready(function(){
 
+            $("[data-toggle='tooltip']").tooltip();
+
+            let id_post = <?php echo $that_post_id; ?>;
+            let id_user = <?php echo getLoggedInUserId(); ?>;
             //Like
 
             $('.like').click(function(){
-
-                let id_post = <?php echo $that_post_id; ?>;
-                let id_user = 28;
                 
                 $.ajax({
                     url: "/CMSProject_F099987/post.php?p_id=<?php echo $that_post_id; ?>",
@@ -303,9 +319,6 @@
             //Unlike
             $('.unlike').click(function(){
 
-                let id_post = <?php echo $that_post_id; ?>;
-                let id_user = 28;
-                
                 $.ajax({
                     url: "/CMSProject_F099987/post.php?p_id=<?php echo $that_post_id; ?>",
                     type: 'post',
